@@ -1,9 +1,9 @@
 <?php
 
-namespace Igniter\Reservation\EventRules\Events;
+namespace Igniter\Reservation\AutomationRules\Events;
 
 use Admin\Models\Reservations_model;
-use Igniter\EventRules\Classes\BaseEvent;
+use Igniter\Automation\Classes\BaseEvent;
 
 class ReservationAssigned extends BaseEvent
 {
@@ -11,7 +11,7 @@ class ReservationAssigned extends BaseEvent
     {
         return [
             'name' => 'Reservation Assigned Event',
-            'description' => 'When an reservation is assigned to a staff',
+            'description' => 'When a reservation is assigned to a staff',
             'group' => 'reservation',
         ];
     }

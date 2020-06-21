@@ -1,14 +1,13 @@
 <div class="table-responsive">
     <table class="table table-borderless">
         <tr>
-            <td><b><?= lang('igniter.reservation::default.reservations.column_id'); ?>:</b></td>
+            <td><b><?= lang('admin::lang.column_id'); ?>:</b></td>
             <td><?= $customerReservation->reservation_id; ?></td>
         </tr>
         <tr>
             <td><b><?= lang('igniter.reservation::default.reservations.column_date'); ?>:</b></td>
             <td>
-                <?= $customerReservation->reserve_time; ?> -
-                <?= day_elapsed($customerReservation->reserve_date); ?>
+                <?= $customerReservation->reserve_date->setTimeFromTimeString($customerReservation->reserve_time)->isoFormat($reservationDateTimeFormat); ?>
             </td>
         </tr>
         <tr>
@@ -27,11 +26,11 @@
             </td>
         </tr>
         <tr>
-            <td><b><?= lang('igniter.reservation::default.reservations.column_name'); ?>:</b></td>
+            <td><b><?= lang('admin::lang.label_name'); ?>:</b></td>
             <td><?= $customerReservation->first_name; ?><?= $customerReservation->last_name; ?></td>
         </tr>
         <tr>
-            <td><b><?= lang('igniter.reservation::default.reservations.column_email'); ?>:</b></td>
+            <td><b><?= lang('admin::lang.label_email'); ?>:</b></td>
             <td><?= $customerReservation->email; ?></td>
         </tr>
         <tr>

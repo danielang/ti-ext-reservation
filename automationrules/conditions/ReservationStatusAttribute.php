@@ -1,7 +1,7 @@
-<?php namespace Igniter\Reservation\EventRules\Conditions;
+<?php namespace Igniter\Reservation\AutomationRules\Conditions;
 
 use ApplicationException;
-use Igniter\EventRules\Classes\BaseModelAttributesCondition;
+use Igniter\Automation\Classes\BaseModelAttributesCondition;
 
 class ReservationStatusAttribute extends BaseModelAttributesCondition
 {

@@ -38,33 +38,22 @@ class Extension extends \System\Classes\BaseExtension
     public function registerActivityTypes()
     {
         return [
-            ActivityTypes\ReservationCreated::class,
+            ActivityTypes\ReservationCreated::class => 'reservationCreated',
         ];
     }
 
-    public function registerEventRules()
+    public function registerAutomationRules()
     {
         return [
             'events' => [
-                'igniter.reservation.confirmed' => \Igniter\Reservation\EventRules\Events\NewReservation::class,
-                'igniter.reservation.beforeAddReservationStatus' => \Igniter\Reservation\EventRules\Events\NewReservationStatus::class,
-                'admin.reservation.assigned' => \Igniter\Reservation\EventRules\Events\ReservationAssigned::class,
+                'igniter.reservation.confirmed' => \Igniter\Reservation\AutomationRules\Events\NewReservation::class,
+                'igniter.reservation.beforeAddReservationStatus' => \Igniter\Reservation\AutomationRules\Events\NewReservationStatus::class,
+                'igniter.reservation.assigned' => \Igniter\Reservation\AutomationRules\Events\ReservationAssigned::class,
             ],
             'actions' => [],
             'conditions' => [
-                \Igniter\Reservation\EventRules\Conditions\ReservationAttribute::class,
-                \Igniter\Reservation\EventRules\Conditions\ReservationStatusAttribute::class,
-            ],
-        ];
-    }
-
-    public function registerNotifications()
-    {
-        return [
-            'templates' => [
-                'igniter.reservation::notification.newReservation' => \Igniter\Reservation\Notifications\NewReservation::class,
-                'igniter.reservation::notification.reservationStatusChanged' => \Igniter\Reservation\Notifications\ReservationStatusChanged::class,
-                'igniter.reservation::notification.reservationAssigned' => \Igniter\Reservation\Notifications\ReservationAssigned::class,
+                \Igniter\Reservation\AutomationRules\Conditions\ReservationAttribute::class,
+                \Igniter\Reservation\AutomationRules\Conditions\ReservationStatusAttribute::class,
             ],
         ];
     }
@@ -72,7 +61,7 @@ class Extension extends \System\Classes\BaseExtension
     protected function bindReservationEvent()
     {
         Event::listen('igniter.reservation.confirmed', function (Reservations_model $model) {
-            ActivityTypes\ReservationCreated::pushActivityLog($model);
+            ActivityTypes\ReservationCreated::log($model);
 
             $model->mailSend('igniter.reservation::mail.reservation', 'customer');
             $model->mailSend('igniter.reservation::mail.reservation_alert', 'location');
@@ -87,6 +76,13 @@ class Extension extends \System\Classes\BaseExtension
                 return;
 
             Event::fire('igniter.reservation.beforeAddReservationStatus', [$model, $object, $statusId, $previousStatus], TRUE);
+        });
+
+        Event::listen('admin.assignable.assigned', function ($model) {
+            if (!$model instanceof Reservations_model)
+                return;
+
+            Event::fire('igniter.reservation.assigned', [$model], TRUE);
         });
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    '_text_title' => 'Reservation',
     'text_tab_general' => 'General',
     'text_component_title' => 'Booking Component',
     'text_component_desc' => 'Displays the booking form',
@@ -55,6 +54,7 @@ return [
     'alert_no_table_available' => 'No table found for the specified number of guests at the selected location.',
     'alert_fully_booked' => 'We are fully booked for the selected date and time, please select a different date or time.',
 
+    'activity_reservation_created_title' => 'New reservation.',
     'activity_reservation_created' => '<b>:subject.customer_name</b> created a reservation.',
 
     'reservations' => [
@@ -64,7 +64,6 @@ return [
         'text_my_account' => 'My Account',
         'text_view_heading' => 'My Reservation View',
         'text_empty' => 'There are no reservation(s).',
-        'text_leave_review' => 'Leave review',
 
         'column_id' => 'Reservation ID',
         'column_status' => 'Status',
@@ -73,12 +72,11 @@ return [
         'column_table' => 'Table Name',
         'column_guest' => 'Guest Number',
         'column_occasion' => 'Occasion',
-        'column_name' => 'Name',
-        'column_email' => 'Email',
         'column_telephone' => 'Telephone',
         'column_comment' => 'Comment',
 
         'button_reserve' => 'Make Reservation',
         'button_back' => 'Back',
+        'btn_view' => 'View',
     ],
 ];

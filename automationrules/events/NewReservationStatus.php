@@ -1,9 +1,9 @@
 <?php
 
-namespace Igniter\Reservation\EventRules\Events;
+namespace Igniter\Reservation\AutomationRules\Events;
 
 use Admin\Models\Reservations_model;
-use Igniter\EventRules\Classes\BaseEvent;
+use Igniter\Automation\Classes\BaseEvent;
 
 class NewReservationStatus extends BaseEvent
 {
